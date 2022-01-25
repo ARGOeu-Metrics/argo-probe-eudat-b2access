@@ -14,8 +14,8 @@
 #   limitations under the License.
 
 Name:		nagios-plugins-eudat-b2access
-Version:	0.3
-Release:	1%{?dist}
+Version:	0.4
+Release:	2%{?dist}
 Summary:	Nagios B2ACCESS probes
 License:	Apache License, Version 2.0
 Packager:	Shiraz Memon <a.memon@fz-juelich.de>
@@ -31,7 +31,8 @@ Requires:	python-simplejson
 Requires:	python-defusedxml
 Requires:	python-httplib2
 Requires:	python-requests
-Requires:	python-pip
+Requires:	python2-requests-oauthlib 
+Requires: python2-validators
 
 
 %description
@@ -49,12 +50,6 @@ install -d %{buildroot}/%{_libexecdir}/argo-monitoring/probes/%{probe_namespace}
 install -m 755 check_b2access.py %{buildroot}/%{_libexecdir}/argo-monitoring/probes/%{probe_namespace}/check_b2access.py
 install -m 755 check_b2access_simple.py %{buildroot}/%{_libexecdir}/argo-monitoring/probes/%{probe_namespace}/check_b2access_simple.py
 
-%post
-pip install oauthlib requests_oauthlib validators
-pip install validators
-pip install requests_oauthlib
-
-
 %files
 %dir /%{_libexecdir}/argo-monitoring
 %dir /%{_libexecdir}/argo-monitoring/probes/
@@ -64,6 +59,8 @@ pip install requests_oauthlib
 %attr(0755,root,root) /%{_libexecdir}/argo-monitoring/probes/%{probe_namespace}/check_b2access_simple.py
 
 %changelog
+* Mon Jan 24 2022 Themis Zamani <a.memon@fz-juelich.de> - 0.4-2
+- Update the spec file requirements 
 * Tue Jun 05 2018 Shiraz Memon <a.memon@fz-juelich.de> - 0.4-1
 - Adapted to Unity v2.x.x REST API
 - More details in verbose mode
