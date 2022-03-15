@@ -1,4 +1,4 @@
-PKGNAME=nagios-plugins-eudat-b2access
+PKGNAME=argo-probe-eudat-b2access
 SPECFILE=${PKGNAME}.spec
 FILES=check_b2access.py check_b2access_simple.py ${SPECFILE}
 
