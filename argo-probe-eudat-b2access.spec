@@ -15,7 +15,7 @@
 
 Name:		argo-probe-eudat-b2access
 Version:	0.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Monitoring metrics for B2ACCESS
 License:	Apache License, Version 2.0
 Packager:	Shiraz Memon <a.memon@fz-juelich.de>
@@ -32,7 +32,7 @@ Requires:	python-defusedxml
 Requires:	python-httplib2
 Requires:	python-requests
 Requires:	python2-requests-oauthlib 
-Requires: python2-validators
+
 
 
 %description
