@@ -146,6 +146,11 @@ def getInfoUsernamePassword(param):
 
         j = entity.json()
         json_formatted_str = json.dumps(j, indent=2)
+        if entity.status_code == 403:	
+            print("CRITICAL: Error retrieving the user information with username {0}: invalid username/password".format(	
+                uname))	
+            sys.exit(2)
+        
         if param.verbose:
             print(f"\nCredential requirement: {j['credentialInfo']['credentialRequirementId']}\n\
                 Entity Id: {str(j['entityInformation']['entityId'])}\n\
@@ -287,8 +292,7 @@ if __name__ == '__main__':
                     "CRITICAL: Public key certificate file does not exist: {0}".format(parser_args.certificate))
             if not os.path.exists(parser_args.key):
                 raise IOError("CRITICAL: Private key file does not exist: : {0}".format(parser_args.key))
-        if not validators.url(parser_args.url):
-            raise SyntaxError("CRITICAL: Invalid URL syntax {0}".format(parser_args.url))
+        
     except IOError as e:
         print(e)
         sys.exit(2)
