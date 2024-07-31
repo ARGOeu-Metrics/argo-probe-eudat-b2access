@@ -29,7 +29,6 @@ Requires: python3-requests
 Requires: python3-oauthlib
 Requires: python3-requests-oauthlib
 Requires: python3-urllib3
-Requires: python3-validators
 
 %description
 Monitoring metrics to check functionality of B2ACCESS Service
