@@ -17,7 +17,6 @@ import datetime
 from oauthlib.oauth2.rfc6749.errors import MissingTokenError
 from requests.exceptions import ConnectionError, HTTPError
 import os.path
-import validators
 
 TOKEN_URI = '/oauth2/token'
 
@@ -43,7 +42,6 @@ def exceptionHandler(message: str):
     return handleExceptions
 
 
-@exceptionHandler("CRITICAL: Error fetching OAuth 2.0 access token:")
 def getAccessToken(param):
     """Fetch access token from B2ACCESS"""
     if param.verbose:
@@ -73,9 +71,12 @@ def getAccessToken(param):
     except TypeError as e:
         print(e)
         sys.exit(2)
+    except:
+        print("CRITICAL: Error fetching OAuth 2.0 access token:", sys.exc_info()[0])
+        sys.exit(2)
+        raise
 
 
-@exceptionHandler("CRITICAL: Error retrieving access token information:")
 def getTokenInfo(url, token, verbose):
     """ Fetch access token details """
     try:
@@ -98,9 +99,11 @@ def getTokenInfo(url, token, verbose):
     except ConnectionError as e:
         print("CRITICAL: Invalid token endpoint URL: {0}".format(e))
         sys.exit(2)
+    except:
+        print("CRITICAL: Error retrieving user information:", sys.exc_info()[0])
+        sys.exit(2)
+        raise
 
-
-@exceptionHandler("CRITICAL: Error retrieving user information:")
 def getUserInfo(url, token, verbose):
     """ Fetch user information using access token """
     try:
@@ -122,10 +125,13 @@ def getUserInfo(url, token, verbose):
         sys.exit(2)
     except ConnectionError as e:
         print("CRITICAL: Invalid UserInfo endpoint URL: {0}".format(e))
+        sys.exit(2
+    except:
+        print("CRITICAL: Error retrieving user information with the username/password:", sys.exc_info()[0])
         sys.exit(2)
+        raise
 
 
-@exceptionHandler("CRITICAL: Error retrieving user information with the username/password:")
 def getInfoUsernamePassword(param):
     """ Query user information with username and password """
 
@@ -158,9 +164,12 @@ def getInfoUsernamePassword(param):
     except KeyError as e:
         print("CRITICAL: Invalid key(s): {0}".format(e))
         sys.exit(2)
+    except:
+        print("CRITICAL: Error retrieving user information with the username/password:", sys.exc_info()[0])
+        sys.exit(2)
+        raise
 
 
-@exceptionHandler("CRITICAL: Error retrieving user information by X509 certificate:")
 def getInfoCert(param):
     """ Query user information with X509 Certificate Authentication """
     try:
@@ -198,6 +207,10 @@ def getInfoCert(param):
     except KeyError as e:
         print("CRITICAL: Invalid key(s): {0}".format(e))
         sys.exit(2)
+    except:
+        print("CRITICAL: Error retrieving user information by X509 certificate:", sys.exc_info())
+        sys.exit(2)
+        raise
 
 
 def getLdapName(openssl_name):
