@@ -60,8 +60,8 @@ def getAccessToken(param):
         if param.verbose:
             print("Access token: " + k['access_token'])
 
-        getTokenInfo(f"{str(param.url)}/oauth2/tokeninfo{str(k['access_token'])}", param.verbose)
-        getUserInfo(f"{str(param.url)}/oauth2/userinfo{str(k['access_token'])}", param.verbose)
+        getTokenInfo(str(param.url)+'/oauth2/tokeninfo',str(k['access_token']), param.verbose)
+        getUserInfo(str(param.url)+'/oauth2/userinfo',str(k['access_token']), param.verbose)
     except ConnectionError as e:
         print("CRITICAL: Invalid Unity URL: {0}".format(e))
         sys.exit(2)
@@ -139,19 +139,16 @@ def getInfoUsernamePassword(param):
 
     if param.verbose:
         print(f"\nQuery with username and password, endpoint URL: {url}")
-
     try:
         uname = param.username
         pwd = param.password
         entity = requests.get(str(url), verify=False, auth=(uname, pwd))
-        if entity.status_code == 403:
-            print("CRITICAL: Error retrieving the user information with username {0}: invalid username/password".format(
-                uname))
-            sys.exit(2)
+
         j = entity.json()
+        json_formatted_str = json.dumps(j, indent=2)
         if param.verbose:
             print(f"\nCredential requirement: {j['credentialInfo']['credentialRequirementId']}\n\
-                Entity Id: {str(j['id'])}\n\
+                Entity Id: {str(j['entityInformation']['entityId'])}\n\
                 Username: {j['identities'][0]['value']}\n\
                 Detailed user information: {entity.text}")
 
@@ -168,7 +165,6 @@ def getInfoUsernamePassword(param):
         print("CRITICAL: Error retrieving user information with the username/password:", sys.exc_info()[0])
         sys.exit(2)
         raise
-
 
 def getInfoCert(param):
     """ Query user information with X509 Certificate Authentication """
