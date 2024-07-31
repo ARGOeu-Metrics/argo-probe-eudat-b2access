@@ -125,7 +125,7 @@ def getUserInfo(url, token, verbose):
         sys.exit(2)
     except ConnectionError as e:
         print("CRITICAL: Invalid UserInfo endpoint URL: {0}".format(e))
-        sys.exit(2
+        sys.exit(2)
     except:
         print("CRITICAL: Error retrieving user information with the username/password:", sys.exc_info()[0])
         sys.exit(2)
