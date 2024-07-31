@@ -14,8 +14,8 @@
 #   limitations under the License.
 
 Name:		argo-probe-eudat-b2access
-Version:	0.4
-Release:	4%{?dist}
+Version:	0.5
+Release:	1%{?dist}
 Summary:	Monitoring metrics for B2ACCESS
 License:	Apache License, Version 2.0
 Packager:	Shiraz Memon <a.memon@fz-juelich.de>
@@ -24,17 +24,12 @@ Source:		%{name}-%{version}.tar.gz
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}
 
-Requires:	python
-Requires:	python-argparse
-Requires:	python-lxml
-Requires:	python-simplejson
-Requires:	python-defusedxml
-Requires:	python-httplib2
-Requires:	python-requests
-Requires:	python2-requests-oauthlib 
-Requires: python2-validators
-
-
+Requires:	python3
+Requires: python3-requests
+Requires: python3-oauthlib
+Requires: python3-requests-oauthlib
+Requires: python3-urllib3
+Requires: python3-validators
 
 %description
 Monitoring metrics to check functionality of B2ACCESS Service
@@ -60,6 +55,8 @@ install -m 755 check_b2access_simple.py %{buildroot}/%{_libexecdir}/argo/probes/
 %attr(0755,root,root) /%{_libexecdir}/argo/probes/%{probe_namespace}/check_b2access_simple.py
 
 %changelog
+* Mon Jul 14 2024 Marvin Winkens <m.winkens@fz-juelich.de> - 1.0-1
+- Updated to python 3
 * Tue Mar 15 2022 Themis Zamani <themiszamani@gmail.com> - 0.4-2
 - Update the spec file requirements 
  * Mon Jan 24 2022 Themis Zamani <themiszamani@gmail.com> - 0.4-2
