@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import argparse
 import sys
@@ -17,9 +17,6 @@ import os.path
 import validators
 from validators.utils import ValidationFailure
 
-TEST_SUFFIX='NAGIOS-' +  strftime("%Y%m%d-%H%M%S",gmtime())
-VALUE_ORIG='http://www.' + TEST_SUFFIX + '.com/1'
-VALUE_AFTER='http://www.' + TEST_SUFFIX + '.com/2'
 TOKEN_URI='/oauth2/token'
 
 def handler(signum, stack):
