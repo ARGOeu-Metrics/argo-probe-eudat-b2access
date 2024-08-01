@@ -264,7 +264,6 @@ if __name__ == '__main__':
     base_url = parser_args.url
     timeout = parser_args.timeout
     username = ""
-    print(parser_args)
 
     if parser_args.action == "1":
         username = parser_args.username
