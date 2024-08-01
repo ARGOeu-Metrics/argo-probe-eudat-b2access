@@ -274,7 +274,6 @@ if __name__ == '__main__':
         print("verbosity is turned ON")
 
     if parser_args.timeout and int(parser_args.timeout) > 0:
-        print(f"Timeout: {timeout}")
         signal.signal(signal.SIGALRM, handler)
         signal.alarm(int(parser_args.timeout))
 
